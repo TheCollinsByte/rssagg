@@ -10,9 +10,14 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
+	"github.com/paradigm-lab/rssagg/internal/database"
 
-	_"github.com/lib/pq"
+	_ "github.com/lib/pq"
 )
+
+type apiConfig struct {
+	DB *database.Queries
+}
 
 func main() {
 
@@ -32,6 +37,12 @@ func main() {
 	if err != nil {
 		log.Fatal("Can't connect to database:", err)
 	}
+
+
+	apiCfg := apiConfig {
+		DB: database.New(conn),
+	}
+
 
 	router := chi.NewRouter()
 
