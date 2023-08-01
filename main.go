@@ -31,12 +31,16 @@ func main() {
 		MaxAge:           300,
 	}))
 
+	/**
+	* 	Hook-Up the HTTP handlers
+	 */
 	v1Router := chi.NewRouter()
 	v1Router.Get("/healthz", handerReadiness)
 	v1Router.Get("/err", handlerErr)
 
 	router.Mount("/v1", v1Router)
 
+	// Server: Pointer to an http.Server (handler and address,port)
 	srv := &http.Server{
 		Handler: router,
 		Addr:    ":" + portString,
